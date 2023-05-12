@@ -1,0 +1,25 @@
+name: Pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Echo
+      if: ${{ inputs.environment }} 
+      run: echo 'hello ${{ inputs.environment }}'
+  
+  # SonarQube:    
+  #   runs-on: ubuntu-latest
+  #   steps:
